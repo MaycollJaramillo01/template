@@ -3,7 +3,7 @@
 
 <section class="breadcrumb_section text-center section_padding">
     <ul class="breadcrumb"><br class="visible-xs"><br class="visible-xs">
-        <li><a href="index.php">Home</a></li>
+        <li><a href="/home-1">Home</a></li>
         <li class="text-white responblack"> Portfolio</li>
     </ul>
     <h1 class="text-white responblack">Recent Works</h1>

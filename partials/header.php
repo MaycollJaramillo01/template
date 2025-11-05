@@ -1,18 +1,28 @@
-<?php @session_start(); ?>
+<?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+require_once __DIR__ . '/../text.php';
+require_once __DIR__ . '/navigation.php';
+
+$homePath = isset($homePath) && $homePath ? $homePath : '/home-1';
+$activeNav = isset($activeNav) ? $activeNav : '';
+$navItems  = nova_navigation_items($homePath);
+?>
 <!DOCTYPE html>
-<?php include 'text.php'; ?>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title><?php echo htmlspecialchars($Company ?? ''); ?></title>
+  <title><?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?></title>
 
   <!-- Mobile Specific Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon.png">
+  <base href="/">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon.png">
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="theme-color" content="#ffffff">
 
@@ -24,11 +34,11 @@
     rel="stylesheet">
 
   <!-- CSS core -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-  <link rel="stylesheet" href="assets/css/magnific-popup.min.css">
-  <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/assets/css/magnific-popup.min.css">
+  <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body>
@@ -66,18 +76,20 @@
         <i class="fal fa-times"></i>
       </button>
       <div class="mobile-logo">
-        <a href="index.php">
-          <img src="assets/img/logo.png" alt="<?php echo htmlspecialchars($Company ?? ''); ?>">
+        <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>">
+          <img src="/assets/img/logo.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         </a>
       </div>
       <div class="th-mobile-menu" role="navigation" aria-label="Mobile">
         <ul>
-          <li><a href="index.php">Home</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="services.php">Our Services</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-      <!--   <li><a href="testimonials.php">Testimonials</a></li> -->
-          <li><a href="contact.php">Contact Us</a></li>
+          <?php foreach ($navItems as $item): ?>
+            <li>
+              <a class="<?php echo nova_navigation_link_class($item['key'], $activeNav); ?>"
+                 href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>">
+                <?php echo htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
+              </a>
+            </li>
+          <?php endforeach; ?>
         </ul>
       </div>
     </div>
@@ -168,8 +180,8 @@
 
         <!-- Logo -->
         <div class="header__left d-flex align-items-center">
-          <a href="index.php" class="header__logo" aria-label="Go to home">
-            <img src="assets/img/logo-white.png" alt="<?php echo htmlspecialchars($Company ?? ''); ?>" height="48">
+          <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>" class="header__logo" aria-label="Go to home">
+            <img src="/assets/img/logo-white.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>" height="48">
           </a>
         </div>
 
@@ -177,12 +189,14 @@
         <div class="header__center d-none d-lg-block">
           <nav class="header-nav" aria-label="Main navigation">
             <ul>
-              <li><a class="<?php echo ($namepage === 'Home') ? 'is-active' : ''; ?>" href="index.php">Home</a></li>
-              <li><a class="<?php echo ($namepage === 'About') ? 'is-active' : ''; ?>" href="about.php">About Us</a></li>
-              <li><a class="<?php echo ($namepage === 'Services') ? 'is-active' : ''; ?>" href="services.php">Our Services</a></li>
-              <li><a class="<?php echo ($namepage === 'Gallery') ? 'is-active' : ''; ?>" href="gallery.php">Gallery</a></li>
-                 <!--    <li><a class="<?php echo ($namepage === 'Testimonials') ? 'is-active' : ''; ?>" href="testimonials.php">Testimonials</a></li>-->  
-              <li><a class="<?php echo ($namepage === 'Contact Us') ? 'is-active' : ''; ?>" href="contact.php">Contact Us</a></li>
+              <?php foreach ($navItems as $item): ?>
+                <li>
+                  <a class="<?php echo nova_navigation_link_class($item['key'], $activeNav); ?>"
+                     href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>">
+                    <?php echo htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
+                  </a>
+                </li>
+              <?php endforeach; ?>
             </ul>
           </nav>
         </div>
@@ -210,18 +224,18 @@
   <!-- MOBILE DRAWER -->
   <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
     <div class="mobile-drawer__header">
-      <a href="index.php">
-        <img src="assets/img/logo.png" alt="<?php echo htmlspecialchars($Company ?? ''); ?>" height="40">
+      <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>">
+        <img src="/assets/img/logo.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>" height="40">
       </a>
       <button class="btn-close-drawer" aria-label="Close menu">&times;</button>
     </div>
     <nav class="mobile-drawer__nav" aria-label="Mobile navigation">
-      <a href="index.php">Home</a>
-      <a href="about.php">About Us</a>
-      <a href="services.php">Our Services</a>
-      <a href="gallery.php">Gallery</a>
-     <!-- <a href="testimonials.php">Testimonials</a> -->  
-      <a href="contact.php">Contact Us</a>
+      <?php foreach ($navItems as $item): ?>
+        <a class="<?php echo nova_navigation_link_class($item['key'], $activeNav); ?>"
+           href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>">
+          <?php echo htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
+        </a>
+      <?php endforeach; ?>
     </nav>
     <div class="mobile-drawer__cta">
       <?php if (!empty($PhoneRef) && !empty($Phone)) : ?>
@@ -240,11 +254,11 @@
 
 
   <!-- Scripts core -->
-  <script src="assets/js/swiper-bundle.min.js"></script>
-  <script src="assets/js/jquery-3.7.1.min.js"></script>
-  <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/js/isotope.pkgd.min.js"></script>
-  <script src="assets/js/jquery.magnific-popup.min.js"></script>
+  <script src="/assets/js/swiper-bundle.min.js"></script>
+  <script src="/assets/js/jquery-3.7.1.min.js"></script>
+  <script src="/assets/js/imagesloaded.pkgd.min.js"></script>
+  <script src="/assets/js/isotope.pkgd.min.js"></script>
+  <script src="/assets/js/jquery.magnific-popup.min.js"></script>
 
   <script>
     (function() {

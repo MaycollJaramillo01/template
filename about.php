@@ -15,7 +15,12 @@ $Mission = $Mission ?? "To deliver fast, honest, and reliable welding services t
 $Vision  = $Vision  ?? "To be recognized as the most trusted welding company in our region.";
 ?>
 
-<?php include('header2.php') ?>
+<?php
+$activeNav = 'About';
+$homePath = '/home-1';
+$page_name = 'about.php';
+require __DIR__ . '/partials/header-secondary.php';
+?>
 
 <!-- ===================== ABOUT HERO ===================== -->
 <div class="breadcumb-wrapper" data-bg-src="assets/img/bg/breadcumb-bg.jpg">
@@ -23,7 +28,7 @@ $Vision  = $Vision  ?? "To be recognized as the most trusted welding company in 
     <div class="breadcumb-content" data-aos="fade-down">
       <h1 class="breadcumb-title" style="color:#fff;">About Us</h1>
       <ul class="breadcumb-menu">
-        <li><a href="index.php" style="color:#fff;">Home</a></li>
+        <li><a href="/home-1" style="color:#fff;">Home</a></li>
         <li style="color:#fff;">About Us</li>
       </ul>
     </div>
@@ -510,7 +515,7 @@ Why Choose Us
   </div>
 </section>
 
-<?php include('footer.php') ?>
+<?php require __DIR__ . '/partials/footer.php'; ?>
 
 <!-- ===================== ANIMATIONS ===================== -->
 <style>

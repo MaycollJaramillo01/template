@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/navigation.php';
+$homePath = isset($homePath) && $homePath ? $homePath : '/home-1';
+$navItems = nova_navigation_items($homePath);
+?>
 <!-- ==============================
 FOOTER
 ============================== -->
@@ -119,8 +124,8 @@ FOOTER
           <div class="widget footer-widget">
             <div class="th-widget-about">
               <div class="about-logo">
-                <a href="index.php">
-                  <img src="assets/img/logo-white.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES); ?>">
+                <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>">
+                  <img src="/assets/img/logo-white.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                 </a>
               </div>
               <p class="about-text"><?php echo htmlspecialchars(substr($Home[0] ?? '', 0, 138)); ?></p>
@@ -154,14 +159,17 @@ FOOTER
         <div class="col-md-6 col-xl-2">
           <div class="widget widget_nav_menu footer-widget">
             <h3 class="widget_title">
-              <img src="assets/img/icon/footer_title4.svg" alt="icon"> Sitemap
+              <img src="/assets/img/icon/footer_title4.svg" alt="icon"> Sitemap
             </h3>
             <ul class="menu">
-              <li><a href="index.php">Home</a></li>
-              <li><a href="about.php">About Us</a></li>
-              <li><a href="services.php">Our Services</a></li>
-              <li><a href="gallery.php">Gallery</a></li>
-              <li><a href="contact.php">Contact Us</a></li>
+              <?php foreach ($navItems as $item): ?>
+                <li>
+                  <a class="<?php echo nova_navigation_link_class($item['key'], $activeNav ?? ''); ?>"
+                     href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>">
+                    <?php echo htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
+                  </a>
+                </li>
+              <?php endforeach; ?>
             </ul>
           </div>
         </div>
@@ -170,7 +178,7 @@ FOOTER
         <div class="col-md-6 col-xl-3">
           <div class="widget widget_nav_menu footer-widget">
             <h3 class="widget_title">
-              <img src="assets/img/icon/footer_title4.svg" alt="icon"> Our Services
+              <img src="/assets/img/icon/footer_title4.svg" alt="icon"> Our Services
             </h3>
             <ul class="menu">
               <?php for ($i = 1; $i <= 5; $i++): ?>
@@ -186,7 +194,7 @@ FOOTER
         <div class="col-md-6 col-xl-3">
           <div class="widget footer-widget">
             <h3 class="widget_title">
-              <img src="assets/img/icon/footer_title4.svg" alt="icon"> Contact Info
+              <img src="/assets/img/icon/footer_title4.svg" alt="icon"> Contact Info
             </h3>
             <div class="th-widget-contact">
               <div class="info-box">
@@ -252,24 +260,24 @@ FOOTER
     All Js File
 ============================== -->
 <!-- Jquery -->
-<script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
+<script src="/assets/js/vendor/jquery-3.7.1.min.js"></script>
 <!-- Swiper Js -->
-<script src="assets/js/swiper-bundle.min.js"></script>
+<script src="/assets/js/swiper-bundle.min.js"></script>
 <!-- Bootstrap -->
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
 <!-- Magnific Popup -->
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
 <!-- Counter Up -->
-<script src="assets/js/jquery.counterup.min.js"></script>
-<!-- Tilt 
-<script src="assets/js/social-buttons.js"></script>-->
-<script src="assets/js/tilt.jquery.min.js"></script>
+<script src="/assets/js/jquery.counterup.min.js"></script>
+<!-- Tilt
+<script src="/assets/js/social-buttons.js"></script>-->
+<script src="/assets/js/tilt.jquery.min.js"></script>
 <!-- Isotope Filter -->
-<script src="assets/js/imagesloaded.pkgd.min.js"></script>
-<script src="assets/js/isotope.pkgd.min.js"></script>
+<script src="/assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="/assets/js/isotope.pkgd.min.js"></script>
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <!-- Main Js File -->
-<script src="assets/js/main.js"></script>
+<script src="/assets/js/main.js"></script>
 <script>
     function onSubmit(token) {
         document.getElementById("demo-form").submit();
