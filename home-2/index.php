@@ -1,8 +1,15 @@
 <?php
-$activeNav = 'Home';
-$homePath = '/home-2';
+$activeNav    = 'Home';
+$homePath     = '/home-2';
+$heroVariant  = 'hero-c';
+
+require __DIR__ . '/../php/slider-loader.php';
+$heroSlider       = nova_slider_prepare($heroVariant);
+$extraHeroStyles  = $heroSlider['styles'];
+$extraHeroScripts = $heroSlider['scripts'];
+
 require __DIR__ . '/../partials/header.php';
-require __DIR__ . '/../partials/sliders/hero-classic.php';
+nova_slider_render($heroSlider);
 ?>
 <section class="py-5" style="background:#f8fafc;">
   <div class="container">
