@@ -26,6 +26,9 @@ $Company   = "FSC MOBILE WELDING";
 $Domain    = "https://www.fscmobilewelding.com/";
 $Address   = "Memphis, TN 38122";
 
+$MetaDescription = "FSC Mobile Welding delivers licensed and insured mobile welding services for residential and commercial clients across Memphis, TN and surrounding communities.";
+$MetaImage       = '/assets/img/normal/about_4.jpg';
+
 $PhoneName = "Main";
 $Phone     = "(901) 480-1713";
 

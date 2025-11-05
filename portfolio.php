@@ -1,5 +1,10 @@
-<?php include('php/sections/header.php') ?>
-<?php include('php/sections/menu.php') ?>
+<?php
+$activeNav = 'Gallery';
+$homePath = '/home-1';
+$page_name = 'portfolio.php';
+$namepage = 'Portfolio';
+require __DIR__ . '/partials/header-secondary.php';
+?>
 
 <section class="breadcrumb_section text-center section_padding">
     <ul class="breadcrumb"><br class="visible-xs"><br class="visible-xs">
@@ -12,27 +17,43 @@
 <section class="about_style_3_area section_padding padportfolio">
   <div class="container">
     <div class="row text-center">
-      <?php for ($i=218; $i >=1; $i--) {?>
+      <?php for ($i = 218; $i >= 1; $i--) :
+        $full = "assets/images/gallery/full/{$i}.jpg";
+        $thumb = "assets/images/gallery/min/{$i}.jpg";
+        if (!file_exists($thumb)) {
+            continue;
+        }
+        $caption = sprintf('%s project #%d', $Company ?? 'Project', $i);
+        $captionEsc = htmlspecialchars($caption, ENT_QUOTES, 'UTF-8');
+      ?>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 gallery-space">
-         <a class="example-image" href="assets/images/gallery/full/<?php echo $i;?>.jpg" data-lightbox="example-set" data-title="">
-          <img class="img-thumbnail wow zoomIn" src="assets/images/gallery/min/<?php echo $i;?>.jpg" alt=""/>
-         </a>
+          <a class="example-image" href="<?= $full ?>" data-lightbox="example-set" data-title="<?= $captionEsc ?>">
+            <img class="img-thumbnail wow zoomIn" src="<?= $thumb ?>" alt="<?= nova_img_alt($caption, 'Portfolio project image', $Company ?? ''); ?>"/>
+          </a>
         </div>
-      <?php } ?>
+      <?php endfor; ?>
     </div>
     <div>
     <div class="row text-center">
-      <?php for ($i=3; $i >=1; $i--) {?>
+      <?php for ($i = 3; $i >= 1; $i--) :
+        $poster = "assets/video/font_page/{$i}.jpg";
+        $video  = "assets/video/full/{$i}.mp4";
+        if (!file_exists($poster)) {
+            continue;
+        }
+        $videoCaption = sprintf('%s video project #%d', $Company ?? 'Project', $i);
+        $videoCaptionEsc = htmlspecialchars($videoCaption, ENT_QUOTES, 'UTF-8');
+      ?>
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 gallery-space">
-         <a class="example-video" href="assets/video/full/<?php echo $i;?>.mp4" data-lightbox="example-set" data-title="">
-          <img class="img-thumbnail wow zoomIn" src="assets/video/font_page/<?php echo $i;?>.jpg" alt=""/>
-         </a>
+          <a class="example-video" href="<?= $video ?>" data-lightbox="example-set" data-title="<?= $videoCaptionEsc ?>">
+            <img class="img-thumbnail wow zoomIn" src="<?= $poster ?>" alt="<?= nova_img_alt($videoCaption, 'Portfolio video thumbnail', $Company ?? ''); ?>"/>
+          </a>
         </div>
-      <?php } ?>
+      <?php endfor; ?>
     </div>
     </div><br><hr>
     <div class="row text-center">
-      <h1 class="text-center text-black fontsize">Videos</h1><br> 			
+      <h1 class="text-center text-black fontsize">Videos</h1><br>
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 gallery-space">
            <iframe width="100%" height="450" src="https://www.youtube.com/embed/g180zT695nw" title="2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
@@ -91,30 +112,4 @@
     </div>
   </div>
 </section>
-<?php include('php/sections/id.php') ?>
-<?php include('php/sections/footer.php') ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<?php require __DIR__ . '/partials/footer.php'; ?>

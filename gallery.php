@@ -45,22 +45,24 @@ require __DIR__ . '/partials/header-secondary.php';
           <div class="grid-sizer"></div>
           <?php 
           $hasImgs = false;
-          for ($i=1; $i<=40; $i++): 
+          for ($i=1; $i<=40; $i++):
             $cap = $Company." · Project #".$i;
             $thumb = "assets/img/gallery/{$i}.jpg";
             if (file_exists($thumb)) {
               $hasImgs = true;
+              $caption = nova_text_fallback($cap, sprintf('%s Project #%d', $Company ?? 'Gallery', $i), $Company ?? '');
+              $captionEsc = htmlspecialchars($caption, ENT_QUOTES, 'UTF-8');
           ?>
           <figure class="g-item" data-aos="zoom-in" data-aos-delay="<?= $i*50 ?>">
-            <a class="g-card popup-image" href="<?= $thumb ?>" data-caption="<?= htmlspecialchars($cap, ENT_QUOTES) ?>">
-              <img src="<?= $thumb ?>" alt="<?= htmlspecialchars($cap, ENT_QUOTES) ?>" loading="lazy">
+            <a class="g-card popup-image" href="<?= $thumb ?>" data-caption="<?= $captionEsc ?>">
+              <img src="<?= $thumb ?>" alt="<?= htmlspecialchars(nova_text_fallback($caption, $caption, $Company ?? ''), ENT_QUOTES, 'UTF-8'); ?>" loading="lazy">
             </a>
           </figure>
           <?php } endfor; ?>
 
           <?php if(!$hasImgs): ?>
           <div class="empty-gallery text-center" data-aos="fade-up">
-            <img src="assets/img/icon/footer_title4.svg" alt="icon" class="empty-icon">
+            <img src="assets/img/icon/footer_title4.svg" alt="<?php echo nova_img_alt('Gallery placeholder icon', 'Gallery icon', $Company ?? ''); ?>" class="empty-icon">
             <h3>Working in Progress</h3>
             <p>Our image gallery will be available soon. Stay tuned!</p>
           </div>
@@ -88,7 +90,7 @@ require __DIR__ . '/partials/header-secondary.php';
 
           <?php if(!$hasVideos): ?>
           <div class="empty-gallery text-center" data-aos="fade-up">
-            <img src="assets/img/icon/footer_title4.svg" alt="icon" class="empty-icon">
+            <img src="assets/img/icon/footer_title4.svg" alt="<?php echo nova_img_alt('Video placeholder icon', 'Gallery icon', $Company ?? ''); ?>" class="empty-icon">
             <h3>Working in Progress</h3>
             <p>Our video gallery will be available soon. Stay tuned!</p>
           </div>
