@@ -1,32 +1,43 @@
-<?php @session_start(); ?>
+<?php
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+require_once __DIR__ . '/../text.php';
+require_once __DIR__ . '/navigation.php';
 
+$page_name = isset($page_name) && $page_name ? $page_name : (basename($_SERVER['SCRIPT_NAME'] ?? '') ?: 'index.php');
+$titles = [
+    'about.php'      => 'About',
+    'services.php'   => 'Services',
+    'gallery.php'    => 'Gallery',
+    '404.php'        => '404',
+    'thank-you.php'  => 'Thank you',
+    'contact.php'    => 'Contact',
+];
+
+$homePath = isset($homePath) && $homePath ? $homePath : '/home-1';
+$activeNav = isset($activeNav) ? $activeNav : '';
+$navItems  = nova_navigation_items($homePath);
+$titleSuffix = isset($titles[$page_name]) ? $titles[$page_name] : '';
+$documentTitle = trim(($Company ?? '') . ($titleSuffix ? ' | ' . $titleSuffix : ''));
+if ($documentTitle === '') {
+    $documentTitle = 'Website';
+}
+?>
 <!DOCTYPE html>
-<?php include 'text.php'; ?>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><?php
-            if ($page_name == 'about.php') {
-                echo "$Company | About";
-            } elseif ($page_name == 'services.php') {
-                echo "$Company | Services";
-            } elseif ($page_name == 'gallery.php') {
-                echo "$Company | Gallery";
-            } elseif ($page_name == '404.php') {
-                echo "$Company | 404";
-            } elseif ($page_name == 'thank-you.php') {
-                echo "$Company | Thank you";
-            } elseif ($page_name == 'contact.php') {
-                echo "$Company | Contact";
-            } ?></title>
+    <title><?php echo htmlspecialchars($documentTitle, ENT_QUOTES, 'UTF-8'); ?></title>
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicons - Place favicon.ico in the root directory -->
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicons/favicon.png">
+    <base href="/">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
@@ -43,18 +54,18 @@
 	    All CSS File
 	============================== -->
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <!-- Fontawesome Icon -->
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.min.css">
     <!-- Swiper Js -->
-    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
     <!-- Star Testimonials CSS -->
-    <link rel="stylesheet" href="assets/css/testimonials.css">
-    <link rel="stylesheet" href="assets/css/star.css">
+    <link rel="stylesheet" href="/assets/css/testimonials.css">
+    <link rel="stylesheet" href="/assets/css/star.css">
     <!-- Theme Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 <!-- AOS Animations -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
@@ -89,16 +100,18 @@
         <div class="th-menu-area text-center">
             <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
             <div class="mobile-logo">
-                <a href="index.php"><img src="assets/img/logo-white.png" alt="Rakar"></a>
+                <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>"><img src="/assets/img/logo-white.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>"></a>
             </div>
             <div class="th-mobile-menu">
                 <ul>
-                    <li><a href="index.php">Home</a></li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="services.php">Our Services</a></li>
-                    <li><a href="gallery.php">Gallery</a></li>
-                    <!-- <li><a href="testimonials.php">Testimonials</a></li> -->
-                    <li><a href="contact.php">Contact Us</a></li>
+                    <?php foreach ($navItems as $item): ?>
+                        <li>
+                            <a class="<?php echo nova_navigation_link_class($item['key'], $activeNav); ?>"
+                               href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>">
+                                <?php echo htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>
@@ -182,18 +195,20 @@
                     <div class="row align-items-center justify-content-between">
                         <div class="col-auto">
                             <div class="header-logo">
-                                <a href="index.php"><img src="assets/img/logo-white.png" alt="Logo"></a>
+                                <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>"><img src="/assets/img/logo-white.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>"></a>
                             </div>
                         </div>
                         <div class="col-auto">
                             <nav class="main-menu d-none d-lg-inline-block">
                                 <ul>
-                                    <li><a href="index.php">Home</a></li>
-                                    <li><a href="about.php">About Us</a></li>
-                                    <li><a href="services.php">Our Services</a></li>
-                                    <li><a href="gallery.php">Gallery</a></li>
-                                    <li><a href="testimonials.php">Testimonials</a></li>
-                                    <li><a href="contact.php">Contact Us</a></li>
+                                    <?php foreach ($navItems as $item): ?>
+                                        <li>
+                                            <a class="<?php echo nova_navigation_link_class($item['key'], $activeNav); ?>"
+                                               href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>">
+                                                <?php echo htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8'); ?>
+                                            </a>
+                                        </li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </nav>
                             <button type="button" class="th-menu-toggle d-block d-lg-none"><i

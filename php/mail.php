@@ -3,7 +3,7 @@
 if (session_status() !== PHP_SESSION_ACTIVE) { @session_start(); }
 
 // Carga variables (Company, $Mail, $Domain, etc.)
-require_once __DIR__ . '/text.php';
+require_once __DIR__ . '/../text.php';
 
 // Helpers
 function h($s){ return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
@@ -20,13 +20,13 @@ $honey    = $_POST['website']       ?? ''; // honeypot
 // CSRF
 if (empty($_SESSION['csrf']) || !$csrf || !hash_equals($_SESSION['csrf'], $csrf)) {
   $_SESSION['contact_err'] = 'Security token expired. Please reload and try again.';
-  header('Location: contact.php'); exit;
+  header('Location: /contact.php'); exit;
 }
 
 // Honeypot
 if ($honey !== '') {
   $_SESSION['contact_err'] = 'Spam detected.';
-  header('Location: contact.php'); exit;
+  header('Location: /contact.php'); exit;
 }
 
 // Reglas mínimas
@@ -38,7 +38,7 @@ if ($message === '')              $errors[] = 'Message is required.';
 
 if ($errors) {
   $_SESSION['contact_err'] = implode(' ', $errors);
-  header('Location: contact.php'); exit;
+  header('Location: /contact.php'); exit;
 }
 
 // Sanitiza
@@ -51,7 +51,7 @@ $message = mb_substr(strip_tags($message), 0, 4000, 'UTF-8');
 $to = $Mail; // <- AQUÍ SE USA $Mail
 if (!$to) { // fallback
   $_SESSION['contact_err'] = 'Recipient email not configured.';
-  header('Location: contact.php'); exit;
+  header('Location: /contact.php'); exit;
 }
 
 // Asunto / remitentes
@@ -94,7 +94,7 @@ $sent = @mail($to, $subject, $html, $headers);
 
 // Fallback: guardar si mail() falla (útil en localhost)
 if (!$sent) {
-  $dir  = __DIR__ . '/data';
+  $dir  = __DIR__ . '/../data';
   $file = $dir . '/leads.json';
   if (!is_dir($dir)) { @mkdir($dir, 0755, true); }
   $payload = [
@@ -122,5 +122,5 @@ $_SESSION['contact_ok'] = $sent
   ? 'Thanks! Your request has been sent. We will contact you shortly.'
   : 'Thanks! Your request was received. (Email queue not available on this server.)';
 
-header('Location: contact.php');
+header('Location: /contact.php');
 exit;

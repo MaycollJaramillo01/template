@@ -1,4 +1,9 @@
-<?php include('header2.php')?>
+<?php
+$activeNav = 'Gallery';
+$homePath = '/home-1';
+$page_name = 'gallery.php';
+require __DIR__ . '/partials/header-secondary.php';
+?>
 <!--==============================
     Breadcumb
 ============================== -->
@@ -7,7 +12,7 @@
     <div class="breadcumb-content">
       <h1 class="breadcumb-title" style="color:#fff;">Our Gallery</h1>
       <ul class="breadcumb-menu">
-        <li><a href="index.php" style="color:#fff;">Home</a></li>
+        <li><a href="/home-1" style="color:#fff;">Home</a></li>
         <li style="color:#fff;">Our Gallery</li>
       </ul>
     </div>
@@ -201,4 +206,4 @@ document.querySelectorAll("video[data-generate-poster]").forEach(video => {
 .empty-gallery p {font:400 1rem/1.6 var(--body-font,Inter);}
 </style>
 
-<?php include('footer.php')?>
+<?php require __DIR__ . '/partials/footer.php'; ?>

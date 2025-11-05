@@ -4,10 +4,12 @@
 // Requiere: text.php cargado antes (Company, Phrase, PhoneRef, MailRef, etc.)
 // =======================================
 
-@session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 // Ruta directa del video (ajusta según tu estructura)
-$VIDEO_SRC = $VIDEO_SRC ?? 'assets/img/videos/flyer.mp4';
+$VIDEO_SRC = $VIDEO_SRC ?? '/assets/img/videos/flyer.mp4';
 
 // Variables de text.php (fallbacks seguros)
 $Company      = $Company      ?? 'Your Company';

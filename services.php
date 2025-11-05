@@ -1,11 +1,16 @@
-<?php include('header2.php') ?>
+<?php
+$activeNav = 'Services';
+$homePath = '/home-1';
+$page_name = 'services.php';
+require __DIR__ . '/partials/header-secondary.php';
+?>
 
 <!-- ===================== BREADCRUMB ===================== -->
 <section class="breadcrumb-area" style="background:linear-gradient(120deg,#00265A,#004b9a);padding:90px 0;color:#fff;text-align:center;">
   <div class="container">
     <h1 class="bread-title" data-aos="fade-down"  style="color:#E5E7EB !important;">Our Services</h1>
     <ul class="bread-list" style="list-style:none;padding:0;margin:10px 0 0;display:inline-flex;gap:8px;">
-      <li><a href="index.php" style="color:#fff;text-decoration:none;">Home</a></li>
+      <li><a href="/home-1" style="color:#fff;text-decoration:none;">Home</a></li>
       <li>/</li>
       <li>Our Services</li>
     </ul>
@@ -361,7 +366,7 @@ document.querySelectorAll('.faq-q').forEach(btn=>{
 });
 </script>
 
-<?php include('footer.php') ?>
+<?php require __DIR__ . '/partials/footer.php'; ?>
 <!-- ===================== ANIMATIONS ===================== -->
 <style>
 @keyframes pulseCta {
