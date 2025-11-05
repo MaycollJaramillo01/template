@@ -1,0 +1,8 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "QA automation utilities for the template site",
+  "scripts": {
+    "qa": "node qa-tests/qa.js"
+  }
+}

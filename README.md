@@ -1,21 +1,26 @@
-# Template
+# template
 
-## Hero slider module
+## Documentation
 
-The home templates load hero sliders through `php/slider-loader.php`. Each home page defines a `$heroVariant` value before including the header:
+### QA automation checks
+The repository includes a lightweight Node.js script at `qa-tests/qa.js` that crawls the site using headless fetch requests to surface common quality issues:
 
-```php
-$heroVariant  = 'hero-b';
-require __DIR__ . '/../php/slider-loader.php';
-$heroSlider       = nova_slider_prepare($heroVariant);
-$extraHeroStyles  = $heroSlider['styles'];
-$extraHeroScripts = $heroSlider['scripts'];
-```
+- Broken internal or external links
+- Referenced assets returning error responses (e.g., 404 stylesheets or scripts)
+- Images whose reported size exceeds the configurable threshold (defaults to 500 KB)
+- Missing SEO essentials (`<title>`, meta description, and meta robots tags)
 
-Call `nova_slider_render($heroSlider);` after the header to output the requested layout. Available variants are:
+### Running the QA script locally
+1. Ensure you have Node.js 18 or newer available so that the built-in `fetch` API is present.
+2. From the project root run one of the following commands:
+   - `npm run qa -- <baseUrl>`
+   - `yarn qa <baseUrl>` (Yarn automatically forwards additional arguments)
+   - `node qa-tests/qa.js <baseUrl>`
 
-- `hero-a`: static hero with background image and highlights.
-- `hero-b`: autoplay slider powered by Swiper.
-- `hero-c`: fade slider matching the theme’s Hero 4 presentation with captions.
+If no `<baseUrl>` is provided the script defaults to `http://localhost:8000/`. You can also adjust behaviour via environment variables:
 
-Home 2 is configured to use `hero-c`, which renders the Hero 4 layout wired to the shared `text.php` data (`$HomeIntro`, `$HeroImages`, `$HeroSlides`). To switch variants on any home template, update the `$heroVariant` string and ensure the loader block remains before the header include so the required CSS/JS assets are injected automatically.
+- `QA_MAX_PAGES`: limit the number of pages to crawl (default `50`).
+- `QA_IMAGE_SIZE_LIMIT`: maximum allowed image size in bytes (default `512000`).
+- `QA_FETCH_TIMEOUT`: request timeout in milliseconds (default `10000`).
+
+The script exits with a non-zero status when any issues are detected and prints a categorized summary so CI pipelines or local developers can clearly see the failing checks.
