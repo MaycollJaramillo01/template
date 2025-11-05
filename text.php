@@ -26,6 +26,9 @@ $Company   = "FSC MOBILE WELDING";
 $Domain    = "https://www.fscmobilewelding.com/";
 $Address   = "Memphis, TN 38122";
 
+$MetaDescription = "FSC Mobile Welding delivers licensed and insured mobile welding services for residential and commercial clients across Memphis, TN and surrounding communities.";
+$MetaImage       = '/assets/img/normal/about_4.jpg';
+
 $PhoneName = "Main";
 $Phone     = "(901) 480-1713";
 
@@ -101,6 +104,83 @@ $Home = array(
   "Welcome to FSC Mobile Welding, Memphis’s trusted welding professionals for over 26 years. We proudly serve both residential and commercial clients, offering licensed and insured mobile welding services around the clock. No matter the size or complexity of the project, our goal is to provide precision, durability, and quality that lasts.",
   "From emergency repairs to large-scale structural welding, our bilingual team is available 24/7 to meet your needs with professionalism and speed. With decades of hands-on experience, we combine technical expertise with top-grade equipment to deliver results you can depend on. At FSC Mobile Welding, your project is our priority—day or night."
 );
+
+$HomeIntroCTAs = [
+  [
+    'label' => 'Request a Quote',
+    'href'  => '/contact.php',
+    'style' => 'primary',
+    'icon'  => 'fas fa-clipboard-list',
+  ],
+];
+
+if (!empty($Phone) && !empty($PhoneRef)) {
+  $HomeIntroCTAs[] = [
+    'label' => $Phone,
+    'href'  => $PhoneRef,
+    'style' => 'outline',
+    'icon'  => 'fas fa-phone-volume',
+  ];
+}
+
+$HomeIntro = [
+  'eyebrow'        => '24/7 Mobile Welding',
+  'headline'       => 'Strength & Precision, Delivered On-Site.',
+  'subheadline'    => 'Serving Memphis and the Mid-South',
+  'lead'           => $Home[0] ?? '',
+  'autoplay_delay' => 6500,
+  'highlights'     => array_values(array_filter([
+    $Experience ?? '',
+    $Estimates ?? '',
+    $Coverage ?? '',
+  ])),
+  'ctas'           => array_values(array_filter($HomeIntroCTAs, function ($cta) {
+    return !empty($cta['label']) && !empty($cta['href']);
+  })),
+];
+
+$HeroImages = [
+  [
+    'src'     => '/assets/img/hero/remodel.jpg',
+    'alt'     => 'Technician delivering on-site mobile welding services',
+    'caption' => 'Emergency welding support anywhere in Memphis, TN',
+  ],
+  [
+    'src'     => '/assets/img/hero/roofing.jpg',
+    'alt'     => 'Structural welding reinforcing a commercial roof',
+    'caption' => 'Structural reinforcement and fabrication tailored to your site',
+  ],
+  [
+    'src'     => '/assets/img/hero/decks.jpg',
+    'alt'     => 'Custom metal fabrication for residential deck railings',
+    'caption' => 'Custom builds crafted to match your specifications',
+  ],
+];
+
+$HeroSlides = [
+  [
+    'title'       => 'Mobile Welding Experts 24/7',
+    'text'        => $Home[0] ?? '',
+    'badge'       => $Schedule ?? '24/7 Response',
+    'caption'     => $HeroImages[0]['caption'],
+    'image_index' => 0,
+  ],
+  [
+    'title'       => 'Custom Fabrication & Repairs On Demand',
+    'text'        => $Home[1] ?? '',
+    'badge'       => $Estimates ?? 'Free Estimates',
+    'caption'     => $HeroImages[1]['caption'],
+    'image_index' => 1,
+  ],
+  [
+    'title'       => 'Licensed • Insured • 26 Years of Experience',
+    'text'        => $Experience ?? '26 Years of Experience',
+    'badge'       => $LicenseNote ?? 'Licensed & Insured',
+    'caption'     => $HeroImages[2]['caption'],
+    'image_index' => 2,
+  ],
+];
+
 
 /* =========================
    ABOUT

@@ -1,8 +1,15 @@
 <?php
-$activeNav = 'Home';
-$homePath = '/home-1';
+$activeNav    = 'Home';
+$homePath     = '/home-1';
+$heroVariant  = 'hero-b';
+
+require __DIR__ . '/../php/slider-loader.php';
+$heroSlider       = nova_slider_prepare($heroVariant);
+$extraHeroStyles  = $heroSlider['styles'];
+$extraHeroScripts = $heroSlider['scripts'];
+
 require __DIR__ . '/../partials/header.php';
-require __DIR__ . '/../partials/sliders/hero-video.php';
+nova_slider_render($heroSlider);
 ?>
 
 
@@ -19,7 +26,7 @@ About Area
       <div class="col-xl-6">
         <div class="about-nova__media">
           <div class="about-nova__frame">
-            <img src="assets/img/normal/about_4.jpg" alt="About <?php echo htmlspecialchars($Company ?? 'Our Company'); ?>">
+            <img src="assets/img/normal/about_4.jpg" alt="<?php echo nova_img_alt(sprintf('About %s', $Company ?? 'our company'), 'About our company', $Company ?? ''); ?>">
           </div>
 
           <!-- Chip de años -->
@@ -48,7 +55,7 @@ About Area
 
           <!-- Título con ícono welding -->
           <h2 class="about-nova__title">
-            <img src="assets/img/icon/footer_title4.svg" alt="Welding Icon" class="about-nova__icon">
+            <img src="assets/img/icon/footer_title4.svg" alt="<?php echo nova_img_alt('Welding icon', 'Decorative welding icon', $Company ?? ''); ?>" class="about-nova__icon">
             About Us
           </h2>
 
@@ -286,14 +293,14 @@ Service Area
       ?>
         <article class="service-card">
           <figure class="service-card__media">
-            <img src="assets/img/service/<?php echo $i; ?>.jpg" alt="<?php echo htmlspecialchars($SN[$i] ?? 'Service', ENT_QUOTES); ?>">
+            <img src="assets/img/service/<?php echo $i; ?>.jpg" alt="<?php echo nova_img_alt($SN[$i] ?? '', sprintf('%s service %02d', $Company ?? 'Service', $i), $Company ?? ''); ?>">
             <span class="service-card__badge">0<?php echo $i; ?></span>
             <span class="service-card__shade"></span>
           </figure>
           <div class="service-card__body">
             <h3 class="service-card__title fade-text">
               <!-- Icono welding en el título -->
-              <img src="assets/img/icon/footer_title4.svg" alt="Service Icon <?php echo $i; ?>" class="service-card__icon">
+              <img src="assets/img/icon/footer_title4.svg" alt="<?php echo nova_img_alt('Service icon ' . $i, 'Service icon', $Company ?? ''); ?>" class="service-card__icon">
               <a href="services.php"><?php echo htmlspecialchars($SN[$i] ?? 'Service'); ?></a>
             </h3>
             <p class="service-card__text fade-text"><?php echo $txt; ?></p>

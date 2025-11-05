@@ -51,7 +51,7 @@ unset($_SESSION['contact_ok'], $_SESSION['contact_err']);
       <!-- Col: Datos -->
       <div class="col-lg-5">
         <div class="contact-card" style="height:100%;background:#fff;border:1px solid var(--th-border-color);border-radius:16px;padding:18px;box-shadow:0 10px 28px rgba(2,6,23,.06);">
-          <span class="sub-title"><img src="assets/img/icon/footer_title4.svg" alt="icon"> Get In Touch</span>
+          <span class="sub-title"><img src="assets/img/icon/footer_title4.svg" alt="<?php echo nova_img_alt('Contact icon', 'Contact section icon', $Company ?? ''); ?>"> Get In Touch</span>
           <h2 class="sec-title" style="margin-top:8px;">Our Contact Information</h2>
           <div class="team-contact">
   <!-- Address -->

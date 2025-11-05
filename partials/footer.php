@@ -125,7 +125,7 @@ FOOTER
             <div class="th-widget-about">
               <div class="about-logo">
                 <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>">
-                  <img src="/assets/img/logo-white.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                  <img src="/assets/img/logo-white.png" alt="<?php echo nova_img_alt($Company ?? '', 'Company logo', $Company ?? ''); ?>">
                 </a>
               </div>
               <p class="about-text"><?php echo htmlspecialchars(substr($Home[0] ?? '', 0, 138)); ?></p>
@@ -159,7 +159,7 @@ FOOTER
         <div class="col-md-6 col-xl-2">
           <div class="widget widget_nav_menu footer-widget">
             <h3 class="widget_title">
-              <img src="/assets/img/icon/footer_title4.svg" alt="icon"> Sitemap
+              <img src="/assets/img/icon/footer_title4.svg" alt="<?php echo nova_img_alt('Sitemap icon', 'Website navigation icon', $Company ?? ''); ?>"> Sitemap
             </h3>
             <ul class="menu">
               <?php foreach ($navItems as $item): ?>
@@ -178,7 +178,7 @@ FOOTER
         <div class="col-md-6 col-xl-3">
           <div class="widget widget_nav_menu footer-widget">
             <h3 class="widget_title">
-              <img src="/assets/img/icon/footer_title4.svg" alt="icon"> Our Services
+              <img src="/assets/img/icon/footer_title4.svg" alt="<?php echo nova_img_alt('Services icon', 'Website services icon', $Company ?? ''); ?>"> Our Services
             </h3>
             <ul class="menu">
               <?php for ($i = 1; $i <= 5; $i++): ?>
@@ -194,7 +194,7 @@ FOOTER
         <div class="col-md-6 col-xl-3">
           <div class="widget footer-widget">
             <h3 class="widget_title">
-              <img src="/assets/img/icon/footer_title4.svg" alt="icon"> Contact Info
+              <img src="/assets/img/icon/footer_title4.svg" alt="<?php echo nova_img_alt('Contact icon', 'Website contact icon', $Company ?? ''); ?>"> Contact Info
             </h3>
             <div class="th-widget-contact">
               <div class="info-box">
@@ -283,6 +283,14 @@ FOOTER
         document.getElementById("demo-form").submit();
     }
 </script>
+<?php
+if (!empty($extraHeroScripts) && is_array($extraHeroScripts)) {
+    foreach (array_unique($extraHeroScripts) as $scriptHref) {
+        $src = htmlspecialchars($scriptHref, ENT_QUOTES, 'UTF-8');
+        echo "<script src=\"{$src}\"></script>\n";
+    }
+}
+?>
 
 </body>
 

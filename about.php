@@ -43,7 +43,7 @@ require __DIR__ . '/partials/header-secondary.php';
       <div class="col-xl-6" data-aos="fade-right">
         <div class="about-nova__media">
           <figure class="about-nova__frame">
-            <img src="assets/img/normal/about_3.jpg" alt="About <?= htmlspecialchars($Company) ?>">
+            <img src="assets/img/normal/about_3.jpg" alt="<?php echo nova_img_alt(sprintf('About %s', $Company ?? 'our company'), 'About our company', $Company ?? ''); ?>">
           </figure>
           <!-- Chip años -->
           <div class="about-nova__years">
