@@ -3,11 +3,66 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 require_once __DIR__ . '/../text.php';
+require_once __DIR__ . '/helpers.php';
 require_once __DIR__ . '/navigation.php';
 
 $homePath = isset($homePath) && $homePath ? $homePath : '/home-1';
 $activeNav = isset($activeNav) ? $activeNav : '';
 $navItems  = nova_navigation_items($homePath);
+
+$languages = nova_detect_languages($BilingualNote ?? '');
+$descriptionCandidates = [
+    $MetaDescription ?? '',
+    isset($Home[0]) ? $Home[0] : '',
+    isset($About[0]) ? $About[0] : '',
+    $Services ?? '',
+];
+$fallbackDescription = ($Company ?? 'Our team') . ' provides licensed and insured mobile welding services throughout Memphis, TN and surrounding communities.';
+$socialCandidates = [
+    $facebook ?? null,
+    $tiktok ?? null,
+    $x_link ?? null,
+    $google ?? null,
+    $usdir ?? null,
+    $thumbtack ?? null,
+    $mapquest ?? null,
+    $angi ?? null,
+    $yelp ?? null,
+    $instagram ?? null,
+    $linkedin ?? null,
+];
+
+$headMeta = nova_prepare_head_metadata([
+    'company' => $Company ?? '',
+    'pageTitle' => $namepage ?? '',
+    'domain' => $Domain ?? '',
+    'fallbackDomain' => $Domain ?? '',
+    'metaImage' => $MetaImage ?? '/assets/img/normal/about_4.jpg',
+    'requestUri' => $_SERVER['REQUEST_URI'] ?? '/',
+    'descriptionCandidates' => $descriptionCandidates,
+    'fallbackDescription' => $fallbackDescription,
+    'social' => $socialCandidates,
+    'map' => $google ?? '',
+    'email' => $Mail ?? '',
+    'phone' => $Phone ?? '',
+    'coverage' => $Coverage ?? '',
+    'services' => $Services ?? '',
+    'schedule' => $Schedule ?? '',
+    'address' => $Address ?? '',
+    'languages' => $languages,
+    'twitterUrl' => $x_link ?? '',
+    'defaultSiteName' => 'FSC Mobile Welding',
+]);
+
+$metaTitle        = $headMeta['title'];
+$metaDescription  = $headMeta['description'];
+$metaCanonical    = $headMeta['canonical'];
+$metaImageUrl     = $headMeta['image'];
+$metaUrl          = $headMeta['url'];
+$metaSiteName     = $headMeta['site_name'];
+$metaTwitter      = $headMeta['twitter_handle'];
+$structuredDataJson = $headMeta['structured_data'];
+$metaSameAs       = $headMeta['same_as'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +70,37 @@ $navItems  = nova_navigation_items($homePath);
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title><?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?></title>
+  <title><?php echo htmlspecialchars($metaTitle, ENT_QUOTES, 'UTF-8'); ?></title>
+  <meta name="description" content="<?php echo htmlspecialchars($metaDescription, ENT_QUOTES, 'UTF-8'); ?>">
+  <link rel="canonical" href="<?php echo htmlspecialchars($metaCanonical, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="<?php echo htmlspecialchars($metaTitle, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta property="og:description" content="<?php echo htmlspecialchars($metaDescription, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta property="og:url" content="<?php echo htmlspecialchars($metaUrl, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta property="og:site_name" content="<?php echo htmlspecialchars($metaSiteName, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta property="og:image" content="<?php echo htmlspecialchars($metaImageUrl, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta property="og:image:secure_url" content="<?php echo htmlspecialchars($metaImageUrl, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta property="og:image:alt" content="<?php echo htmlspecialchars($metaSiteName, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<?php echo htmlspecialchars($metaTitle, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta name="twitter:description" content="<?php echo htmlspecialchars($metaDescription, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta name="twitter:image" content="<?php echo htmlspecialchars($metaImageUrl, ENT_QUOTES, 'UTF-8'); ?>">
+  <meta name="twitter:image:alt" content="<?php echo htmlspecialchars($metaSiteName, ENT_QUOTES, 'UTF-8'); ?>">
+  <?php if ($metaTwitter !== ''): ?>
+    <meta name="twitter:site" content="<?php echo htmlspecialchars($metaTwitter, ENT_QUOTES, 'UTF-8'); ?>">
+    <meta name="twitter:creator" content="<?php echo htmlspecialchars($metaTwitter, ENT_QUOTES, 'UTF-8'); ?>">
+  <?php endif; ?>
+  <?php if (!empty($metaSameAs)): ?>
+    <?php foreach ($metaSameAs as $same): ?>
+      <link rel="me" href="<?php echo htmlspecialchars($same, ENT_QUOTES, 'UTF-8'); ?>">
+    <?php endforeach; ?>
+  <?php endif; ?>
+  <?php if (!empty($structuredDataJson)): ?>
+    <script type="application/ld+json">
+<?php echo $structuredDataJson; ?>
+    </script>
+  <?php endif; ?>
 
   <!-- Mobile Specific Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,7 +162,7 @@ $navItems  = nova_navigation_items($homePath);
       </button>
       <div class="mobile-logo">
         <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>">
-          <img src="/assets/img/logo.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+          <img src="/assets/img/logo.png" alt="<?php echo nova_img_alt($Company ?? '', 'Company logo', $Company ?? ''); ?>">
         </a>
       </div>
       <div class="th-mobile-menu" role="navigation" aria-label="Mobile">
@@ -181,7 +266,7 @@ $navItems  = nova_navigation_items($homePath);
         <!-- Logo -->
         <div class="header__left d-flex align-items-center">
           <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>" class="header__logo" aria-label="Go to home">
-            <img src="/assets/img/logo-white.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>" height="48">
+            <img src="/assets/img/logo-white.png" alt="<?php echo nova_img_alt($Company ?? '', 'Company logo', $Company ?? ''); ?>" height="48">
           </a>
         </div>
 
@@ -225,7 +310,7 @@ $navItems  = nova_navigation_items($homePath);
   <div id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
     <div class="mobile-drawer__header">
       <a href="<?php echo htmlspecialchars($homePath, ENT_QUOTES, 'UTF-8'); ?>">
-        <img src="/assets/img/logo.png" alt="<?php echo htmlspecialchars($Company ?? '', ENT_QUOTES, 'UTF-8'); ?>" height="40">
+        <img src="/assets/img/logo.png" alt="<?php echo nova_img_alt($Company ?? '', 'Company logo', $Company ?? ''); ?>" height="40">
       </a>
       <button class="btn-close-drawer" aria-label="Close menu">&times;</button>
     </div>

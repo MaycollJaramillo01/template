@@ -172,15 +172,16 @@ require __DIR__ . '/partials/header-secondary.php';
       </p>
     </div>
 
-    <?php for ($i = 1; $i <= 5; $i++): 
+    <?php for ($i = 1; $i <= 5; $i++):
       if (empty($SN[$i])) continue;
-      $title = htmlspecialchars($SN[$i]);
-      $text  = htmlspecialchars($SD[$i] ?? '');
+      $rawTitle = $SN[$i];
+      $title = htmlspecialchars($rawTitle, ENT_QUOTES, 'UTF-8');
+      $text  = htmlspecialchars($SD[$i] ?? '', ENT_QUOTES, 'UTF-8');
       $img   = "assets/img/service/{$i}.jpg";
     ?>
       <div class="service-row" data-aos="fade-up" data-aos-delay="<?= $i*100 ?>">
         <div class="service-img">
-          <img src="<?= $img ?>" alt="<?= $title ?>" loading="lazy" onerror="this.style.display='none'">
+          <img src="<?= $img ?>" alt="<?= nova_img_alt($rawTitle, sprintf('%s service %d', $Company ?? 'Service', $i), $Company ?? ''); ?>" loading="lazy" onerror="this.style.display='none'">
         </div>
         <div class="service-content">
           <h3><?= $title ?></h3>
