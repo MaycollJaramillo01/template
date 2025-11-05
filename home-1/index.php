@@ -1,8 +1,15 @@
 <?php
-$activeNav = 'Home';
-$homePath = '/home-1';
+$activeNav    = 'Home';
+$homePath     = '/home-1';
+$heroVariant  = 'hero-b';
+
+require __DIR__ . '/../php/slider-loader.php';
+$heroSlider       = nova_slider_prepare($heroVariant);
+$extraHeroStyles  = $heroSlider['styles'];
+$extraHeroScripts = $heroSlider['scripts'];
+
 require __DIR__ . '/../partials/header.php';
-require __DIR__ . '/../partials/sliders/hero-video.php';
+nova_slider_render($heroSlider);
 ?>
 
 

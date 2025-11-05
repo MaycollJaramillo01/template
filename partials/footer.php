@@ -283,6 +283,14 @@ FOOTER
         document.getElementById("demo-form").submit();
     }
 </script>
+<?php
+if (!empty($extraHeroScripts) && is_array($extraHeroScripts)) {
+    foreach (array_unique($extraHeroScripts) as $scriptHref) {
+        $src = htmlspecialchars($scriptHref, ENT_QUOTES, 'UTF-8');
+        echo "<script src=\"{$src}\"></script>\n";
+    }
+}
+?>
 
 </body>
 

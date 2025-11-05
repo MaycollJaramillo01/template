@@ -39,6 +39,14 @@ $navItems  = nova_navigation_items($homePath);
   <link rel="stylesheet" href="/assets/css/magnific-popup.min.css">
   <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <?php
+  if (!empty($extraHeroStyles) && is_array($extraHeroStyles)) {
+      foreach (array_unique($extraHeroStyles) as $styleHref) {
+          $href = htmlspecialchars($styleHref, ENT_QUOTES, 'UTF-8');
+          echo "  <link rel=\"stylesheet\" href=\"{$href}\">\n";
+      }
+  }
+  ?>
 </head>
 
 <body>
