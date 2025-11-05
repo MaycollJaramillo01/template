@@ -1,0 +1,13 @@
+[29-Aug-2025 21:38:41 UTC] PHP Warning:  Undefined variable $whatsapp in /home/pz32e2wxnjgw/public_html/5starshimprove.com/contact.php on line 83
+[29-Aug-2025 22:22:03 UTC] PHP Warning:  Undefined variable $whatsapp in /home/pz32e2wxnjgw/public_html/5starshimprove.com/contact.php on line 83
+[29-Aug-2025 22:23:52 UTC] PHP Warning:  Undefined variable $whatsapp in /home/pz32e2wxnjgw/public_html/5starshimprove.com/contact.php on line 83
+[29-Aug-2025 22:52:56 UTC] PHP Warning:  Undefined variable $whatsapp in /home/pz32e2wxnjgw/public_html/5starshimprove.com/contact.php on line 83
+[02-Sep-2025 17:50:23 UTC] PHP Warning:  Undefined variable $whatsapp in /home/pz32e2wxnjgw/public_html/5starshimprove.com/contact.php on line 83
+[02-Sep-2025 17:51:25 UTC] PHP Warning:  Undefined variable $whatsapp in /home/pz32e2wxnjgw/public_html/5starshimprove.com/contact.php on line 83
+[02-Oct-2025 18:00:02 UTC] PHP Warning:  Undefined variable $whatsapp in /home/pz32e2wxnjgw/public_html/5starshimprove.com/contact.php on line 83
+[02-Oct-2025 22:31:56 UTC] PHP Warning:  Undefined variable $reviews in /home/pz32e2wxnjgw/public_html/5starshimprove.com/index.php on line 167
+[02-Oct-2025 22:31:56 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/pz32e2wxnjgw/public_html/5starshimprove.com/index.php on line 167
+[02-Oct-2025 22:32:23 UTC] PHP Warning:  Undefined variable $reviews in /home/pz32e2wxnjgw/public_html/5starshimprove.com/index.php on line 193
+[02-Oct-2025 22:32:23 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/pz32e2wxnjgw/public_html/5starshimprove.com/index.php on line 193
+[02-Oct-2025 22:32:54 UTC] PHP Warning:  Undefined variable $reviews in /home/pz32e2wxnjgw/public_html/5starshimprove.com/index.php on line 161
+[02-Oct-2025 22:32:54 UTC] PHP Warning:  foreach() argument must be of type array|object, null given in /home/pz32e2wxnjgw/public_html/5starshimprove.com/index.php on line 161
