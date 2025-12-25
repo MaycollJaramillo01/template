@@ -29,41 +29,37 @@ require __DIR__ . '/partials/header-secondary.php';
 $options = [
     [
         'path' => '/home-1',
-        'title' => 'Home Layout One',
-        'summary' => 'Immersive video hero with detailed service highlights.',
+        'title' => 'Editorial Narrative',
+        'summary' => 'Hero-led storytelling with layered service and process cues.',
     ],
     [
         'path' => '/home-2',
-        'title' => 'Home Layout Two',
-        'summary' => 'Classic hero banner with service cards and company story.',
+        'title' => 'Studio Profile',
+        'summary' => 'A people-first layout that surfaces the studio mission early.',
     ],
     [
         'path' => '/home-3',
-        'title' => 'Home Layout Three',
-        'summary' => 'Split hero with video spotlight and testimonial snapshot.',
+        'title' => 'Execution Focus',
+        'summary' => 'Process-forward layout for teams that lead with method.',
     ],
 ];
 ?>
-<section class="py-5" style="background:#f1f5f9;">
-  <div class="container">
-    <div class="row justify-content-center text-center mb-5">
-      <div class="col-lg-8">
-        <span class="badge bg-primary text-light px-3 py-2 mb-3">Choose your experience</span>
-        <h1 class="fw-bold mb-3">Select a Home Page Variant</h1>
-        <p class="lead text-muted">Explore each layout option to find the presentation that best fits your brand. All variants share the same business data from a single source of truth.</p>
-      </div>
+<section class="section">
+  <div class="container-nova">
+    <div style="text-align:center; max-width: 680px; margin: 0 auto 40px;">
+      <span class="section-eyebrow">Select a direction</span>
+      <h1 class="section-title">Choose your homepage narrative</h1>
+      <p class="section-lead">Each option uses the same data source and modular sections, but with a different story order and visual emphasis.</p>
     </div>
-    <div class="row g-4">
+    <div class="services-grid">
       <?php foreach ($options as $option): ?>
-        <div class="col-md-4">
-          <div class="card h-100 shadow-sm border-0">
-            <div class="card-body p-4 d-flex flex-column">
-              <h2 class="h4 fw-bold mb-3"><?php echo htmlspecialchars($option['title'], ENT_QUOTES, 'UTF-8'); ?></h2>
-              <p class="text-muted flex-grow-1"><?php echo htmlspecialchars($option['summary'], ENT_QUOTES, 'UTF-8'); ?></p>
-              <a class="btn btn-primary mt-4" href="<?php echo htmlspecialchars($option['path'], ENT_QUOTES, 'UTF-8'); ?>">View Layout</a>
-            </div>
-          </div>
-        </div>
+        <article class="service-card">
+          <span><?php echo htmlspecialchars($option['title'], ENT_QUOTES, 'UTF-8'); ?></span>
+          <h3 style="font-family: var(--font-display); margin: 0;">
+            <?php echo htmlspecialchars($option['summary'], ENT_QUOTES, 'UTF-8'); ?>
+          </h3>
+          <a class="btn-secondary-nova" href="<?php echo htmlspecialchars($option['path'], ENT_QUOTES, 'UTF-8'); ?>">Explore Layout</a>
+        </article>
       <?php endforeach; ?>
     </div>
   </div>

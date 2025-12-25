@@ -5,10 +5,10 @@ if (!function_exists('nova_navigation_items')) {
         $homePath = $homePath ?: '/home-1';
         return [
             ['label' => 'Home', 'href' => $homePath, 'key' => 'Home'],
-            ['label' => 'About Us', 'href' => '/about.php', 'key' => 'About'],
-            ['label' => 'Our Services', 'href' => '/services.php', 'key' => 'Services'],
-            ['label' => 'Gallery', 'href' => '/gallery.php', 'key' => 'Gallery'],
-            ['label' => 'Contact Us', 'href' => '/contact.php', 'key' => 'Contact'],
+            ['label' => 'Services', 'href' => '/services.php', 'key' => 'Services'],
+            ['label' => 'Projects', 'href' => '/gallery.php', 'key' => 'Projects'],
+            ['label' => 'About', 'href' => '/about.php', 'key' => 'About'],
+            ['label' => 'Contact', 'href' => '/contact.php', 'key' => 'Contact'],
         ];
     }
 }
