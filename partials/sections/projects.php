@@ -1,20 +1,9 @@
-<?php
-$activeNav = 'Projects';
-$homePath = '/home-1';
-$page_name = 'portfolio.php';
-require __DIR__ . '/partials/header-secondary.php';
-
-$pageIntro = $PageIntros['projects'] ?? [];
-?>
-
-<?php require __DIR__ . '/partials/sections/page-hero.php'; ?>
-
-<section class="section" id="portfolio">
+<section class="section" id="projects">
   <div class="container-nova">
     <div style="display:grid; gap: 16px; margin-bottom: 36px;">
-      <span class="section-eyebrow">Expanded Portfolio</span>
-      <h2 class="section-title">Additional case studies and interior sequences.</h2>
-      <p class="section-lead">A deeper look at build phasing, finishes, and field coordination.</p>
+      <span class="section-eyebrow"><?php echo htmlspecialchars($ProjectsIntro['eyebrow'] ?? 'Projects', ENT_QUOTES, 'UTF-8'); ?></span>
+      <h2 class="section-title"><?php echo htmlspecialchars($ProjectsIntro['title'] ?? '', ENT_QUOTES, 'UTF-8'); ?></h2>
+      <p class="section-lead"><?php echo htmlspecialchars($ProjectsIntro['lead'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
     </div>
     <div class="projects-grid">
       <?php foreach ($Projects as $project): ?>
@@ -35,7 +24,3 @@ $pageIntro = $PageIntros['projects'] ?? [];
     </div>
   </div>
 </section>
-
-<?php require __DIR__ . '/partials/sections/cta.php'; ?>
-
-<?php require __DIR__ . '/partials/footer.php'; ?>
